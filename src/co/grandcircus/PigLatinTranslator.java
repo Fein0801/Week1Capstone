@@ -7,7 +7,7 @@ public class PigLatinTranslator {
 
     // "List" of vowels in English
     private static final String[] VOWELS = { "a", "e", "i", "o", "u" };
-    private static final String[] IGNORE = { "the", "@" };
+    private static final String[] IGNORE = { "the", "and" };
 
     // "List" of indices of first occurence of each vowel
     private static int[] vowelIndices = new int[VOWELS.length];
@@ -124,5 +124,7 @@ public class PigLatinTranslator {
 	}
 	return false;
     }
+
+    // Finds symbols
 
 }
