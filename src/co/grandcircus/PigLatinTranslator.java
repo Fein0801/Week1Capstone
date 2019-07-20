@@ -40,8 +40,8 @@ public class PigLatinTranslator {
     }
 
     // Finds the first vowel in the given string
-    private static int findFirstVowel(String str) {
-	findVowels(str);
+    private static int findFirstVowel(String word) {
+	findVowels(word);
 	int firstVowelIndex = -1;
 	for (int i = 0; i < vowelIndices.length; i++) {
 	    int currIndex = vowelIndices[i];
@@ -57,14 +57,14 @@ public class PigLatinTranslator {
     }
 
     // Finds the FIRST instance of each vowel in str (Never gets called in main)
-    private static void findVowels(String str) {
+    private static void findVowels(String word) {
 	for (int i = 0; i < VOWELS.length; i++) {
-	    vowelIndices[i] = str.indexOf(VOWELS[i]);
+	    vowelIndices[i] = word.indexOf(VOWELS[i]);
 	}
     }
 
-    private static String translateWord(String str) {
-	int firstVowelIndex = findFirstVowel(str);
+    private static String translateWord(String word) {
+	int firstVowelIndex = findFirstVowel(word);
 	ArrayList<String> ignore = new ArrayList<String>();
 
 	// ignore words like "the"
@@ -73,17 +73,17 @@ public class PigLatinTranslator {
 	}
 
 	// I want to ignore certain words like "the"
-	if (!ignore.contains(str) && str.length() > 2) {
-	    if ((firstVowelIndex == -1) || containsNumbers(str)) {
-		return str;
+	if (!ignore.contains(word) && word.length() > 2) {
+	    if ((firstVowelIndex == -1) || containsNumbersOrSymbols(word)) {
+		return word;
 	    } else if (firstVowelIndex == 0) {
-		return str.concat("way");
+		return word.concat("way");
 	    } else {
-		String firstConsonants = str.substring(0, firstVowelIndex);
-		return str.substring(firstVowelIndex).concat(firstConsonants).concat("ay");
+		String firstConsonants = word.substring(0, firstVowelIndex);
+		return word.substring(firstVowelIndex).concat(firstConsonants).concat("ay");
 	    }
 	}
-	return str;
+	return word;
     }
 
     // Determines whether a string is a line or one word and calls translateWord()
@@ -114,17 +114,14 @@ public class PigLatinTranslator {
 	return finalLine; // FIXME return something
     }
 
-    // Finds numbers
-    private static boolean containsNumbers(String str) {
-	int[] numbers = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-	for (int i : numbers) {
-	    if (str.contains(Integer.toString(i))) {
+    // Finds numbers or symbols
+    private static boolean containsNumbersOrSymbols(String word) {
+	for (int i = 0; i < word.length(); i++) {
+	    if (!Character.isLetter(word.charAt(i))) {
 		return true;
 	    }
 	}
 	return false;
     }
-
-    // Finds symbols
 
 }
