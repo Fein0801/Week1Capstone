@@ -9,7 +9,7 @@ public class PigLatinTranslator {
     private static final String[] VOWELS = { "a", "e", "i", "o", "u" };
     private static final String[] IGNORE = { "the", "and" };
 
-    // "List" of indices of first occurence of each vowel
+    // "List" of indices of first occurrence of each vowel
     private static int[] vowelIndices = new int[VOWELS.length];
 
     public static void main(String[] args) {
@@ -63,6 +63,7 @@ public class PigLatinTranslator {
 	}
     }
 
+    // translates one word into pig latin
     private static String translateWord(String word) {
 	int firstVowelIndex = findFirstVowel(word);
 	ArrayList<String> ignore = new ArrayList<String>();
@@ -111,13 +112,14 @@ public class PigLatinTranslator {
 	    finalLine = finalLine.concat(translateWord(s)).concat(" ");
 	}
 
-	return finalLine; // FIXME return something
+	return finalLine;
     }
 
     // Finds numbers or symbols
     private static boolean containsNumbersOrSymbols(String word) {
 	for (int i = 0; i < word.length(); i++) {
-	    if (!Character.isLetter(word.charAt(i))) {
+	    // If the character is not a letter or an apostrophe
+	    if (!Character.isLetter(word.charAt(i)) && (word.charAt(i) != '\'')) {
 		return true;
 	    }
 	}
